@@ -1,0 +1,10 @@
+.idea
+*.bkp
+*.pem
+*.pub
+*.venv
+*.zip
+vault-*
+nomad-*
+consul-*
+.DS_Store
