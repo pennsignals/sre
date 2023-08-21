@@ -1,0 +1,1 @@
+../share/tag.azure.resources.sh
