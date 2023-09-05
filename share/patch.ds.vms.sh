@@ -36,7 +36,7 @@ while [ $counter -le 10 ]; do
     vm_status=$(echo $sentence_status | cut -d" " -f2-)
 
     # Check if the VM is allocated and running.
-    if [[ $vm_status != "VM runing" ]]; then
+    if [[ $vm_status != "VM running" ]]; then
       echo "VM $vm_name is not running."
       is_ready=false
     fi
