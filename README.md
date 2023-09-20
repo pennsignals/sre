@@ -1,6 +1,6 @@
-# ServerAdminScripts
+# Site Reliability Engineering for Isolated Research Lab Clusters
 
-Repository for all scripts hosted on the fileshare used to administer servers.
+Repository for all scripts hosted on the lab's fileshare used to administer he lab cluster.
 
 Local Run Instructions
 
