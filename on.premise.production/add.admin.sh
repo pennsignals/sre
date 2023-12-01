@@ -1,1 +1,0 @@
-../share/add.admin.sh

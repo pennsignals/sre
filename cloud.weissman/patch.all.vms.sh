@@ -1,1 +1,0 @@
-../share/patch.all.vms.sh

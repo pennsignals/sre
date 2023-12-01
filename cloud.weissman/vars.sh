@@ -3,7 +3,5 @@ set -euxo pipefail
 
 user="signals"
 ssh_key=".ssh/acs_key"
-C="10.145.240"
-source lib.sh
 
-all_ips=( "5" "6" "12")
+source lib.sh

@@ -1,1 +1,0 @@
-../share/unseal.vault.sh

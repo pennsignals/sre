@@ -1,1 +1,0 @@
-../share/reboot.all.nodes.sh
