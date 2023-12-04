@@ -1,1 +1,0 @@
-../share/update.nomad.registry.auth.sh
