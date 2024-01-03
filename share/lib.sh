@@ -362,7 +362,7 @@ function tag_resources() {
     local subscription_name=$1
     shift
     local resource_group_name=$1
-    az login
+    az login --use-device-code
     az account set -n $subscription_name
     r=$(az resource list -g $resource_group_name --query [].id --output tsv)
     for resource_id in $r; do

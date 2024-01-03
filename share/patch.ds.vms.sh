@@ -15,7 +15,7 @@ source vars.sh
 #For general Resource Group use
 #./patch.ds.vms.sh (Subscription Name) (resource group name)
 
-az login
+az login --use-device-code
 az account set --subscription "$1"
 az vm start --ids $(az vm list -g "$2" --query "[].id" -o tsv)
 ips_string=$(az vm list -g "$2" --query "[].privateIps" -d -o tsv)
