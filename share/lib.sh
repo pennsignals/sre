@@ -101,7 +101,8 @@ function patch () {
     local ip=$1
     ssh -T -i ${ssh_key} "${user}@${ip}" << EOF
 set -euxo pipefail
-sudo apt-get update && \
+export DEBIAN_FRONTEND=noninteractive
+sudo apt-get -y upgrade -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" && \
 sudo apt-get -y upgrade && \
 sudo apt-get -y autoremove
 EOF
@@ -298,6 +299,17 @@ set -euxo pipefail
 if [[ -e ${dst} ]]; then
     sudo ln -sf ${dst} ${lnk}
 fi;
+EOF
+}
+
+function cleanup_nomad_periodic () {
+    # can be run on jump box with access to nomad binary
+    local ip=$1
+    ssh -T -i ${ssh_key} "${user}@${ip}" << EOF
+set -euxo pipefail
+sudo apt-get install parallel
+nomad job status | grep 'periodic-' awk '{print $1}' > jobs.txt
+cat jobs.txt | parllel -j32 nomad stop -detach -purge
 EOF
 }
 

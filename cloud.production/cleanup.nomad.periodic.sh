@@ -1,0 +1,1 @@
+../share/cleanup.nomad.periodic.sh
