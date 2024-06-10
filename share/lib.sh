@@ -310,6 +310,7 @@ set -euxo pipefail
 sudo apt-get install parallel
 nomad job status | grep 'periodic-' awk '{print $1}' > jobs.txt
 cat jobs.txt | parllel -j32 nomad stop -detach -purge
+rm jobs.txt
 EOF
 }
 
