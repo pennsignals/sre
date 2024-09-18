@@ -33,4 +33,9 @@ nomad_version="1.0.18"
 old_vault_version="1.6.0"
 vault_version="1.6.7"
 
+postgres_database=datascience
+postgres_host=use2-ds-production-postgres-a.postgres.database.azure.com
+postgres_port=5432
+postgres_username=datascience
+
 source lib.sh

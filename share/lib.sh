@@ -101,8 +101,9 @@ function patch () {
     local ip=$1
     ssh -T -i ${ssh_key} "${user}@${ip}" << EOF
 set -euxo pipefail
+export DEBIAN_FRONTEND=noninteractive
 sudo apt-get update && \
-sudo apt-get -y upgrade && \
+sudo apt-get -y upgrade -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" && \
 sudo apt-get -y autoremove
 EOF
 }

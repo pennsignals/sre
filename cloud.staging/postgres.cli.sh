@@ -1,0 +1,1 @@
+../share/postgres.cli.sh
