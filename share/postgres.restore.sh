@@ -1,6 +1,9 @@
 #! /usr/bin/env bash
 
+ip="${C}.${jump_ips[0]}"
+
 source vars.sh
-set +x
-sudo pg_restore -Fc -f "/nfsdisk/postgres_backups/$(date '%(%Y.%m.%d)')${postgres_database}.dump" "user=${postgres_username} password=${postgres_password} host=${postgres_host} port=${postgres_port} dbname=${postgres_database}"
-set -x
+
+local dotted_date=$1
+
+postgres_restore $ip $dotted_date
