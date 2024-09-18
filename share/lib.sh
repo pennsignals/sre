@@ -382,6 +382,7 @@ set +x
 sudo pg_dump -Fc -f "/nfsdisk/postgres_backups/$(date '%(%Y.%m.%d)')${postgres_database}.dump" "user=${postgres_username} password=${postgres_password} host=${postgres_host} port=${postgres_port} dbname=${postgres_database}"
 set -x
 EOF
+}
 
 function postgres_restore() {
     local jump_ip=$1
