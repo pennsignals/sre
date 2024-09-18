@@ -376,7 +376,7 @@ function tag_resources() {
 
 function postgres_dump() {
     local jump_ip=$1
-    local dotted_date=$(date '+Y%.%m.%d')
+    local dotted_date=$(date '+%Y.%m.%d')
     ssh -T -i ${ssh_key} "${user}@${jump_ip}" << EOF
 set -euxo pipefail
 set +x
