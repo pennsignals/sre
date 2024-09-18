@@ -379,7 +379,7 @@ function postgres_dump() {
     ssh -T -i ${ssh_key} "${user}@${jump_ip}" << EOF
 set -euxo pipefail
 set +x
-sudo pg_dump -Fc -f "/nfsdisk/postgres_backups/$(date '%(%Y.%m.%d)')${postgres_database}.dump" "user=${postgres_username} password=${postgres_password} host=${postgres_host} port=${postgres_port} dbname=${postgres_database}"
+sudo pg_dump -Fc -f "/nfsdisk/postgres-backup/$(date '%(%Y.%m.%d)')${postgres_database}.dump" "user=${postgres_username} password=${postgres_password} host=${postgres_host} port=${postgres_port} dbname=${postgres_database}"
 set -x
 EOF
 }
@@ -390,7 +390,7 @@ function postgres_restore() {
     ssh -T -i ${ssh_key} "${user}@${jump_ip}" << EOF
 set -euxo pipefail
 set +x
-sudo pg_restore -Fc -f "/nfsdisk/postgres_backups/${dotted_date}.${postgres_database}.dump" "user=${postgres_username} password=${postgres_password} host=${postgres_host} port=${postgres_port} dbname=${postgres_database}"
+sudo pg_restore -Fc -f "/nfsdisk/postgres-backup/${dotted_date}.${postgres_database}.dump" "user=${postgres_username} password=${postgres_password} host=${postgres_host} port=${postgres_port} dbname=${postgres_database}"
 set -x
 EOF
 }
