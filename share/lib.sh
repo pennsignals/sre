@@ -374,7 +374,7 @@ function tag_resources() {
     done;
 }
 
-function dump_postgres () {
+function postgres_dump() {
     local jump_ip=$1
     ssh -T -i ${ssh_key} "${user}@${jump_ip}" << EOF
 set -euxo pipefail
@@ -382,7 +382,7 @@ sudo pg_dump -Fc -f "/nfsdisk/postgres_backups/$(date '%(%Y.%m.%d)')${postgres_d
 set -x
 EOF
 
-function restore_postgres() {
+function postgres_restore() {
     local jump_ip=$1
     local dotted_date=$2  # 2024.09.18
     ssh -T -i ${ssh_key} "${user}@${jump_ip}" << EOF
