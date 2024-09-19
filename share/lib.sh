@@ -188,7 +188,7 @@ EOF
 
 function vault_unseal () {
     # quoted first EOF does not expand variables
-    local $ip=$1
+    local ip=$1
     ssh -T -i ${ssh_key} "${user}@${ip}" << 'EOF'
 set -euxo pipefail
 CONSUL_HTTP_TOKEN=$(consul kv get service/consul/vault-token)
