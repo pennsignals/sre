@@ -12,30 +12,22 @@ wget -O ${zip} "https://releases.hashicorp.com/nomad/${nomad_version}/nomad_${no
 sudo unzip ${zip}
 sudo mv nomad ${src}
 
-ips=( "${all_ips[@]}" )
-for N in "${!ips[@]}";
+for node in "${nodes[@]}";
 do
-	ip="${C}.${ips[$N]}"
-        download_nomad $ip $src $lnk $dst
+        download_nomad $node $src $lnk $dst
 done;
 
-ips=( "${all_ips[@]}" )
-for N in "${!ips[@]}";
+for node in "${nodes[@]}";
 do
-	ip="${C}.${ips[$N]}"
-        upgrade_nomad $ip $lnk $dst
+        upgrade_nomad $node $lnk $dst
 done;
 
-ips=( "${nomad_ips[@]}" )
-for N in "${!ips[@]}";
+for nomad in "${nomads[@]}";
 do
-	ip="${C}.${ips[$N]}"
-        restart_nomad $ip
+        restart_nomad $nomad
 done;
 
-ips=( "${minion_ips[@]}" )
-for N in "${!ips[@]}";
+for minion in "${minions[@]}";
 do
-	ip="${C}.${ips[$N]}"
-        restart_nomad $ip
+        restart_nomad $minion
 done;

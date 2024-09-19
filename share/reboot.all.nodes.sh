@@ -4,11 +4,9 @@ set -euxo pipefail
 source vars.sh
 source check.all.nodes.sh
 
-ips=( "${all_ips[@]}" )
-for N in "${!ips[@]}";
+for node in "${nodes[@]}";
 do
-	ip="${C}.${ips[$N]}"
-        restart $ip
+        restart $node
 done;
 
 sleep 15

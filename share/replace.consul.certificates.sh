@@ -20,10 +20,9 @@ consul tls ca create;
 
 svc="consul"
 mesh="${svc}.service.consul"
-ips=( "${consul_ips[@]}" )
-for N in "${!ips[@]}";
+for N in ${!consuls[@]};
 do
-	ip="${C}.${ips[$N]}"
+	ip="${consuls[$N]}"
 	node="${svc}-${N}"
 	dns="${node}.${dn}"
 	consul tls cert create -server -dc=${dc} -days=${days} \
@@ -39,10 +38,9 @@ done;
 
 svc="vault"
 mesh="${svc}.service.consul"
-ips=( "${vault_ips[@]}" )
-for N in "${!ips[@]}";
+for N in "${!vaults[@]}";
 do
-	ip="${C}.${ips[$N]}"
+	ip="${vaults[$N]}"
 	node="${svc}-${N}"
 	dns="${node}.${dn}"
 	consul tls cert create -client -dc=${dc} -days=${days} \
@@ -57,10 +55,9 @@ done;
 
 svc="nomad"
 mesh="${svc}.service.consul"
-ips=( "${nomad_ips[@]}" )
-for N in "${!ips[@]}";
+for N in "${!nomads[@]}";
 do
-	ip="${C}.${ips[$N]}"
+	ip="${nomads[$N]}"
 	node="${svc}-${N}"
 	dns="${node}.${dn}"
 	consul tls cert create -client -dc=${dc} -days=${days} \
@@ -75,10 +72,9 @@ done;
 
 svc="haproxy"
 mesh="${svc}.service.consul"
-ips=( "${haproxy_ips[@]}" )
-for N in "${!ips[@]}";
+for N in "${!haproxies[@]}";
 do
-	ip="${C}.${ips[$N]}"
+	ip="${haproxies[$N]}"
 	node="${svc}-${N}"
 	dns="${node}.${dn}"
 	consul tls cert create -client -dc=${dc} -days=${days} \
@@ -93,10 +89,9 @@ done;
 
 svc="jump"
 mesh="${svc}.service.consul"
-ips=( "${jump_ips[@]}" )
-for N in "${!ips[@]}";
+for N in "${!jumps[@]}";
 do
-	ip="${C}.${ips[$N]}"
+	ip="${jumps[$N]}"
 	node="${svc}-${N}"
 	dns="${node}.${dn}"
 	consul tls cert create -client -dc=${dc} -days=${days} \
@@ -111,10 +106,9 @@ done;
 
 svc="minion"
 mesh="${svc}.service.consul"
-ips=( "${minion_ips[@]}" )
-for N in "${!ips[@]}";
+for N in "${!minions[@]}";
 do
-	ip="${C}.${ips[$N]}"
+	ip="${minons[$N]}"
 	node="${svc}-${N}"
 	dns="${node}.${dn}"
 	consul tls cert create -client -dc=${dc} -days=${days} \

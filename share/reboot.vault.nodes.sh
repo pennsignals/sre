@@ -3,11 +3,9 @@ set -euxo pipefail
 
 source vars.sh
 
-ips=( "${vault_ips[@]}" )
-for N in "${!ips[@]}";
+for node in "${nodes[@]}";
 do
-	ip="${C}.${ips[$N]}"
-        restart $ip
+        restart $node
 done;
 
 sleep 15

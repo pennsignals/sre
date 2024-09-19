@@ -9,17 +9,13 @@ src="../assets${dst}"
 template="../assets/etc/nomad.d/configtemplate.json"
 
 update_config $template $src
-ips=( "${nomad_ips[@]}" )
-for N in "${!ips[@]}";
+for nomad in "${nomads[@]}";
 do
-	ip="${C}.${ips[$N]}"
-        upload_registry_auth $ip $src $user $name $dst
+        upload_registry_auth $nomad $src $user $name $dst
 done;
 
-ips=( "${minion_ips[@]}" )
-for N in "${!ips[@]}";
+for minion in "${minions[@]}";
 do
-	ip="${C}.${ips[$N]}"
-        upload_registry_auth $ip $src $user $name $dst
+        upload_registry_auth $minion $src $user $name $dst
 done;
 rm $src

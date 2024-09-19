@@ -4,7 +4,6 @@ set -euxo pipefail
 dc="dc1"
 dn="${dc}.signals.uphs.upenn.edu"
 days=1825
-C="10.145.241"
 ca_pem="consul-agent-ca.pem"
 cs_pem_key="consul-agent-cs-pem.key"
 user="signals"
@@ -15,35 +14,29 @@ set +x
 source $secrets set
 set -x
 
-c=${C}
+c="10.145.241"
+
 octets=("36" "37" "38")
 consuls=($(printf "${c}.%s " "${octets[@]}"))
-consul_ips=${octets}
 
 octets=("52" "53" "54")
 vaults=($(printf "${c}.%s " "${octets[@]}"))
-vault_ips=${octets}
 
 octets=("68" "69" "70")
 nomads=($(printf "${c}.%s " "${octets[@]}"))
-nomad_ips=${octets}
 
 octets=("20")
 haproxies=($(printf "${c}.%s " "${octets[@]}"))
-haproxy_ips=${octets}
 
 octets=("4")
 jumps=($(printf "${c}.%s " "${octets[@]}"))
-jump_ips=${octets}
 
 octets=("71" "72" "73")
 minions=($(printf "${c}.%s " "${octets[@]}"))
-minion_ips=${octets}
 
 nodes=("${consuls[@]}" "${vaults[@]}" "${nomads[@]}" "${haproxies[@]}" "${minions[@]}" "${jumps[@]}")
 unset octets
-
-all_ips=( "${consul_ips[@]}" "${vault_ips[@]}" "${nomad_ips[@]}" "${haproxy_ips[@]}" "${minion_ips[@]}" "${jump_ips[@]}")
+unset c
 
 old_consul_version="1.9.4"
 consul_version="1.9.17"

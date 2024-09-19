@@ -12,23 +12,17 @@ wget -O ${zip} "https://releases.hashicorp.com/vault/${vault_version}/vault_${va
 sudo unzip ${zip}
 sudo mv vault ${src}
 
-ips=( "${all_ips[@]}" )
-for N in "${!ips[@]}";
+for node in "${nodes[@]}";
 do
-	ip="${C}.${ips[$N]}"
-        download_vault $ip $src $lnk $dst
+        download_vault $node $src $lnk $dst
 done;
 
-ips=( "${all_ips[@]}" )
-for N in "${!ips[@]}";
+for node in "${nodes[@]}";
 do
-	ip="${C}.${ips[$N]}"
-        upgrade_vault $ip $lnk $dst
+        upgrade_vault $node $lnk $dst
 done;
 
-ips=( "${vault_ips[@]}" )
-for N in "${!ips[@]}";
+for vault in "${vaults[@]}";
 do
-	ip="${C}.${ips[$N]}"
-        restart_vault $ip
+        restart_vault $vault
 done;

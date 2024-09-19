@@ -3,11 +3,9 @@ set -euxo pipefail
 
 source vars.sh
 
-ips=( "${all_ips[@]}" )
-for N in "${!ips[@]}";
+for node in "${nodes[@]}";
 do
-	ip="${C}.${ips[$N]}"
-        patch $ip
+        patch $node
 done;
 
 source reboot.all.nodes.sh

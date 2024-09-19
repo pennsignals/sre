@@ -12,23 +12,17 @@ wget -O ${zip} "https://releases.hashicorp.com/consul/${consul_version}/consul_$
 sudo unzip ${zip}
 sudo mv consul ${src}
 
-ips=( "${all_ips[@]}" )
-for N in "${!ips[@]}";
+for node in "${nodes[@]}";
 do
-	ip="${C}.${ips[$N]}"
-        download_consul $ip $src $lnk $dst
+        download_consul $node $src $lnk $dst
 done;
 
-ips=( "${all_ips[@]}" )
-for N in "${!ips[@]}";
+for node in "${nodes[@]}";
 do
-	ip="${C}.${ips[$N]}"
-        upgrade_consul $ip $lnk $dst
+        upgrade_consul $node $lnk $dst
 done;
 
-ips=( "${all_ips[@]}" )
-for N in "${!ips[@]}";
+for node in "${nodes[@]}";
 do
-	ip="${C}.${ips[$N]}"
-	restart_consul $ip
+	restart_consul $node
 done;
