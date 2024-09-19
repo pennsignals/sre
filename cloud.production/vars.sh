@@ -15,12 +15,34 @@ set +x
 source $secrets set
 set -x
 
-consul_ips=("36" "37" "38")
-vault_ips=("52" "53" "54")
-nomad_ips=("71" "72" "73")
-haproxy_ips=("20")
-jump_ips=("4")
-minion_ips=("68" "69" "70")
+c=${C}
+
+octets=("36" "37" "38")
+consuls=("${c}.${octets[@]}")
+consul_ips=${octets}
+
+octets=("52" "53" "54")
+vaults=("${c}.${octets[@]}")
+vault_ips=${octets}
+
+octets=("71" "72" "73")
+nomads=("${c}.${octets[@]}")
+nomad_ips=${octets}
+
+octets=("20")
+haproxies=("${c}.${octets[@]}")
+haproxy_ips=${octets}
+
+octets=("4")
+jumps=("${c}.${octets[@]}")
+jump_ips=${octets}
+
+octets=("68" "69" "70")
+minions=("${c}.${octets[@]}")
+minion_ips=${octets}
+
+nodes=("${consuls[@]}" "${vaults[@]}" "${nomads[@]}" "${haproxies[@]}" "${minions[@]}" "${jumps[@]}")
+unset octets
 
 all_ips=( "${consul_ips[@]}" "${vault_ips[@]}" "${nomad_ips[@]}" "${haproxy_ips[@]}" "${minion_ips[@]}" "${jump_ips[@]}")
 

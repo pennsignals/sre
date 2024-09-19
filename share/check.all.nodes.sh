@@ -3,9 +3,7 @@ set -euxo pipefail
 
 source vars.sh
 
-ips=( "${all_ips[@]}" )
-for N in "${!ips[@]}";
+for node in "${nodes[@]}";
 do
-	ip="${C}.${ips[$N]}"
-        check $ip
+        check $node
 done;
