@@ -17,27 +17,27 @@ set -x
 
 c=${C}
 octets=("36" "37" "38")
-consuls=("${c}.${octets[@]}")
+consuls=($(printf "${c}.%s " "${octets[@]}"))
 consul_ips=${octets}
 
 octets=("52" "53" "54")
-vaults=("${c}.${octets[@]}")
+vaults=($(printf "${c}.%s " "${octets[@]}"))
 vault_ips=${octets}
 
 octets=("68" "69" "70")
-nomads=("${c}.${octets[@]}")
+nomads=($(printf "${c}.%s " "${octets[@]}"))
 nomad_ips=${octets}
 
 octets=("20")
-haproxies=("${c}.${octets[@]}")
+haproxies=($(printf "${c}.%s " "${octets[@]}"))
 haproxy_ips=${octets}
 
 octets=("4")
-jumps=("${c}.${octets[@]}")
+jumps=($(printf "${c}.%s " "${octets[@]}"))
 jump_ips=${octets}
 
 octets=("71" "72" "73")
-minions=("${c}.${octets[@]}")
+minions=($(printf "${c}.%s " "${octets[@]}"))
 minion_ips=${octets}
 
 nodes=("${consuls[@]}" "${vaults[@]}" "${nomads[@]}" "${haproxies[@]}" "${minions[@]}" "${jumps[@]}")
