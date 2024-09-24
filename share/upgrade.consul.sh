@@ -22,7 +22,13 @@ do
         upgrade_consul $node $lnk $dst
 done;
 
-for node in "${nodes[@]}";
+for node in "${consuls[@]}";
+do
+        restart_consul $node
+done;
+
+clients=($(comm -23 <(printf "%s\n" "${nodes[@]}" | sort) <(print "%s\n" "${consuls[@]}" | sort)))
+for node in "${clients[@]}";
 do
 	restart_consul $node
 done;
