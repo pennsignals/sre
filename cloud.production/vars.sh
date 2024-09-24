@@ -48,7 +48,7 @@ old_vault_version="1.6.0"
 vault_version="1.6.7"
 
 old_levant_version="0.2.8"
-levant_version="0.2.9"
+levant_version="0.3.3"
 
 postgres_database=datascience
 postgres_host=use2-ds-production-postgres-a.postgres.database.azure.com
