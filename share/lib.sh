@@ -346,6 +346,33 @@ sudo systemctl restart vault
 EOF
 }
 
+function download_levant () {
+    local ip=$1
+    local src=$2
+    local lnk=$3
+    local dst=$4
+    scp -i ${ssh_key} ${src} ${user}@${ip}:~/${src}
+    ssh -T -i ${ssh_key} "${user}@${ip}" << EOF
+set -euxo pipefail
+if [[ -e ${lnk} ]]; then
+    sudo cp ${src} ${dst}
+    sudo chown root:root ${dst}
+fi;
+EOF
+}
+
+function upgrade_levant () {
+    local ip=$1
+    local lnk=$2
+    local dst=$3
+    ssh -T -i ${ssh_key} "${user}@${ip}" << EOF
+set -euxo pipefail
+if [[ -e ${dst} ]]; then
+    sudo ln -sf ${dst} ${lnk}
+fi;
+EOF
+}
+
 function invalid_parameter {
     echo "Invalid parameter $1" >&2
     usage

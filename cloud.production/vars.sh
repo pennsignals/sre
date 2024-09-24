@@ -47,6 +47,9 @@ nomad_version="1.0.18"
 old_vault_version="1.6.0"
 vault_version="1.6.7"
 
+old_levant_version="0.2.8"
+levant_version="0.2.9"
+
 postgres_database=datascience
 postgres_host=use2-ds-production-postgres-a.postgres.database.azure.com
 postgres_port=5432
