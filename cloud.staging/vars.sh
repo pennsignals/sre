@@ -42,8 +42,9 @@ unset c
 old_consul_version="1.10.11"
 consul_version="1.11.11"
 
-old_nomad_version="1.0.18"
-nomad_version="1.1.18"
+# old_nomad_version="1.0.18"
+# old_nomad_version="1.1.18"
+nomad_version="1.2.16"
 
 #old_vault_version="1.7.10"
 #old_vault_version="1.8.8"
