@@ -38,19 +38,19 @@ nodes=("${consuls[@]}" "${vaults[@]}" "${nomads[@]}" "${haproxies[@]}" "${minion
 unset octets
 unset c
 
-# old_consul_version="1.9.17"
-# old_consul_version="1.10.11"
+# consul_version="1.9.17"
+# consul_version="1.10.11"
 consul_version="1.11.11"
 
 old_nomad_version="1.0.18"
 nomad_version="1.1.18"
 
-# old_vault_version="1.7.10"
-# old_vault_version="1.8.8"
-# old_vault_version="1.9.3"
+# vault_version="1.7.10"
+# vault_version="1.8.8"
+# vault_version="1.9.3"
 vault_version="1.10.11"
 
-old_levant_version="0.2.8"
+# levant_version="0.2.8"
 levant_version="0.3.3"
 
 postgres_database=datascience
