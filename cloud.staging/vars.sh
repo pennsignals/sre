@@ -46,7 +46,7 @@ unset c
 # consul_version="1.14.11"
 # consul_version="1.15.10"
 # consul_version="1.16.6"
-consul_version="1.17.4"
+consul_version="1.17.3"
 
 # nomad_version="1.0.18"
 nomad_version="1.1.18"
