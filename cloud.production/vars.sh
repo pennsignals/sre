@@ -38,8 +38,9 @@ nodes=("${consuls[@]}" "${vaults[@]}" "${nomads[@]}" "${haproxies[@]}" "${minion
 unset octets
 unset c
 
-old_consul_version="1.9.17"
-consul_version="1.10.11"
+# old_consul_version="1.9.17"
+# old_consul_version="1.10.11"
+consul_version="1.11.11"
 
 old_nomad_version="1.0.18"
 nomad_version="1.1.18"
