@@ -44,8 +44,9 @@ consul_version="1.10.11"
 old_nomad_version="1.0.18"
 nomad_version="1.1.18"
 
-old_vault_version="1.7.10"
-vault_version="1.8.8"
+#old_vault_version="1.7.10"
+old_vault_version="1.8.8"
+vault_version="1.9.3"
 
 old_levant_version="0.2.8"
 levant_version="0.3.3"
