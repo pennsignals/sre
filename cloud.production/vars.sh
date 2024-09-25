@@ -40,9 +40,10 @@ unset c
 
 # consul_version="1.9.17"
 # consul_version="1.10.11"
-consul_version="1.11.11"
+# consul_version="1.11.11"
+consul_version="1.12.9"
 
-old_nomad_version="1.0.18"
+# nomad_version="1.0.18"
 nomad_version="1.1.18"
 
 # vault_version="1.7.10"
