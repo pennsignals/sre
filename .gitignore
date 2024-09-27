@@ -8,4 +8,5 @@ vault-*
 nomad-*
 consul-*
 levant-*
+LICENSE.txt
 .DS_Store
