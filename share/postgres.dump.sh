@@ -2,4 +2,4 @@
 
 source vars.sh
 
-postgres_dump ${jumps[0]}"
+postgres_dump "${jumps[0]}"
