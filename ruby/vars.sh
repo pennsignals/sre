@@ -15,7 +15,7 @@ jumps=($(printf "${c}.%s " "${octets[@]}"))
 unset octets
 unset c
 
-postgres_database="datascience"
+postgres_database="postgres"
 postgres_host="use2-ds-ruby.postgres.database.azure.com"
 postgres_port="5432"
 postgres_username="datascience"
