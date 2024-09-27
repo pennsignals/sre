@@ -7,4 +7,5 @@
 vault-*
 nomad-*
 consul-*
+levant-*
 .DS_Store
