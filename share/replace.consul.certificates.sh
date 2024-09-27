@@ -6,7 +6,7 @@ source vars.sh
 rm *.pem
 
 shopt -s expand_aliases
-alias consul="/usr/local/bin/consul-1.12.9"
+alias consul="/usr/local/bin/consul-${consul_version}"
 
 # Create a new  certificate authority:
 
