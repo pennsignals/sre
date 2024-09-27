@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 set -euxo pipefail
+user="signals"
+ssh_key=".ssh/acs_key"
+
+secrets="./secrets/secrets.env"
+set +x
+source $secrets set
+set -x
 
 c="10.145.241"
 
