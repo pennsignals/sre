@@ -49,6 +49,8 @@ unset c
 # consul_version="1.17.3"
 consul_version="1.18.2"
 
+consul_template_version="0.39.1"
+
 # nomad_version="1.0.18"
 nomad_version="1.1.18"
 # nomad_version="1.2.6" # does not elect a leader (consul 1.11.1, vault 1.10.11)

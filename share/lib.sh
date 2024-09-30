@@ -276,6 +276,41 @@ sudo systemctl restart consul
 EOF
 }
 
+function download_consul_template() {
+    local ip=$1
+    local src=$2
+    local lnk=$3
+    local dst=$4
+    scp -i ${ssh_key} ${src} ${user}@${ip}:~/${src}
+    ssh -T -i ${ssh_key} "${user}@${ip}" << EOF
+set -euxo pipefail
+if [[ -e ${lnk} ]]; then
+    sudo cp ${src} ${dst}
+    sudo chown root:root ${dst}
+fi;
+EOF
+}
+
+function upgrade_consul_template () {
+    local ip=$1
+    local lnk=$2
+    local dst=$3
+    ssh -T -i ${ssh_key} "${user}@${ip}" << EOF
+set -euxo pipefail
+if [[ -e ${dst} ]]; then
+    sudo ln -sf ${dst} ${lnk}
+fi;
+EOF
+}
+
+function restart_consul_template () {
+    local ip=$1
+    ssh -T -i ${ssh_key} "${user}@${ip}" << EOF
+set -euxo pipefail
+sudo systemctl restart consul-template
+EOF
+}
+
 function download_nomad () {
     local ip=$1
     local src=$2
