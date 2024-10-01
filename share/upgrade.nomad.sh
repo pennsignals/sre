@@ -3,6 +3,9 @@ set -euxo pipefail
 
 source vars.sh
 
+servers="${1:-true}"
+echo "nomad upgrade servers: ${servers}"
+
 src="nomad-${nomad_version}"
 zip="${src}.zip"
 dst="/usr/local/bin/${src}"
@@ -17,15 +20,25 @@ do
         download_nomad $node $src $lnk $dst
 done;
 
-for node in "${nodes[@]}";
+if servers; then
+        for node in "${nomads[@]}";
+        do
+                upgrade_nomad $node $lnk $dst
+        done;
+
+        for nomad in "${nomads[@]}";
+        do
+                restart_nomad $nomad
+                echo "Allow time for server to rejoin"
+                sleep 10
+        done;
+fi
+
+for node in "${minions[@]}";
 do
         upgrade_nomad $node $lnk $dst
 done;
 
-for nomad in "${nomads[@]}";
-do
-        restart_nomad $nomad
-done;
 
 for minion in "${minions[@]}";
 do
