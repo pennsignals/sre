@@ -250,7 +250,7 @@ function download_consul() {
     ssh -T -i ${ssh_key} "${user}@${ip}" << EOF
 set -euxo pipefail
 if [[ -e ${lnk} ]]; then
-    sudo cp ${src} ${dst}
+    sudo cp --no-clobber ${src} ${dst}
     sudo chown root:root ${dst}
 fi;
 EOF
@@ -285,7 +285,7 @@ function download_consul_template() {
     ssh -T -i ${ssh_key} "${user}@${ip}" << EOF
 set -euxo pipefail
 if [[ -e ${lnk} ]]; then
-    sudo cp ${src} ${dst}
+    sudo cp --no-clobber ${src} ${dst}
     sudo chown root:root ${dst}
 fi;
 EOF
@@ -320,7 +320,7 @@ function download_nomad () {
     ssh -T -i ${ssh_key} "${user}@${ip}" << EOF
 set -euxo pipefail
 if [[ -e ${lnk} ]]; then
-    sudo cp ${src} ${dst}
+    sudo cp --no-clobber ${src} ${dst}
     sudo chown root:root ${dst}
 fi;
 EOF
@@ -355,7 +355,7 @@ function download_vault () {
     ssh -T -i ${ssh_key} "${user}@${ip}" << EOF
 set -euxo pipefail
 if [[ -e ${lnk} ]]; then
-    sudo cp ${src} ${dst}
+    sudo cp --no-clobber ${src} ${dst}
     sudo chown root:root ${dst}
 fi;
 EOF
@@ -390,7 +390,7 @@ function download_levant () {
     ssh -T -i ${ssh_key} "${user}@${ip}" << EOF
 set -euxo pipefail
 if [[ -e ${lnk} ]]; then
-    sudo cp ${src} ${dst}
+    sudo cp --no-clobber ${src} ${dst}
     sudo chown root:root ${dst}
 fi;
 EOF
