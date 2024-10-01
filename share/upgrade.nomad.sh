@@ -3,7 +3,7 @@ set -euxo pipefail
 
 source vars.sh
 
-servers="${1:-true}"
+servers="${1:-1}"
 echo "nomad upgrade servers: ${servers}"
 
 src="nomad-${nomad_version}"
