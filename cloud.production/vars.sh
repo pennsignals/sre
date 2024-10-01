@@ -54,6 +54,7 @@ consul_template_version="0.39.1"
 
 # nomad_version="1.0.18"
 nomad_version="1.1.18"
+nomad_version="1.2.16"
 
 # vault_version="1.7.10"
 # vault_version="1.8.8"

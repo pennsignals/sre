@@ -54,8 +54,8 @@ consul_template_version="0.39.1"
 
 # nomad_version="1.0.18"
 # nomad_version="1.1.18"
-# nomad_version="1.2.6" # does not elect a leader (consul 1.11.1, vault 1.10.11)
-nomad_version="1.2.16"
+# nomad_version="1.2.16"  # raft protocol update to v3 means that nomad server need time to sync
+nomad_version="1.3.16"
 
 # vault_version="1.7.10"
 # vault_version="1.8.8"
