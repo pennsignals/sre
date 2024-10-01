@@ -9,7 +9,7 @@ dst="/usr/local/bin/${src}"
 lnk="/usr/local/bin/nomad"
 
 wget -O ${zip} "https://releases.hashicorp.com/nomad/${nomad_version}/nomad_${nomad_version}_linux_amd64.zip"
-sudo unzip ${zip}
+sudo unzip -o ${zip}
 sudo mv nomad ${src}
 
 noservers=($(comm -23 <(printf "%s\n" "${nodes[@]}" | sort) <(print "%s\n" "${nomads[@]}" | sort)))

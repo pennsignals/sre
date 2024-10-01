@@ -9,7 +9,7 @@ dst="/usr/local/bin/${src}"
 lnk="/usr/local/bin/levant"
 
 wget -O ${zip} "https://releases.hashicorp.com/levant/${levant_version}/levant_${levant_version}_linux_amd64.zip"
-sudo unzip ${zip}
+sudo unzip -o ${zip}
 sudo mv levant ${src}
 
 for node in "${jumps[@]}";

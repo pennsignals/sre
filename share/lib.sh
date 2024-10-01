@@ -53,19 +53,19 @@ set -euxo pipefail
 
 if [[ -e /usr/local/bin/consul ]]; then
     wget -O "consul-${consul_version}.zip" "https://releases.hashicorp.com/consul/${consul_version}/consul_${consul_version}_linux_amd64.zip"
-    sudo unzip "consul-${consul_version}.zip"
+    sudo unzip -o "consul-${consul_version}.zip"
     sudo mv consul "/usr/local/bin/consul-${consul_version}"
 fi;
 
 if [[ -e /usr/local/bin/vault ]]; then
     wget -O "vault-${vault_version}.zip" "https://releases.hashicorp.com/vault/${vault_version}/vault_${vault_version}_linux_amd64.zip"
-    sudo unzip "vault-${vault_version}.zip"
+    sudo unzip -o "vault-${vault_version}.zip"
     sudo mv vault "/usr/local/bin/vault-${vault_version}"
 fi;
 
 if [[ -e /usr/local/bin/nomad ]]; then
     wget -O "nomad-${nomad_version}.zip" "https://releases.hashicorp.com/nomad/${nomad_version}/nomad_${nomad_version}_linux_amd64.zip"
-    sudo unzip "nomad-${nomad_version}.zip"
+    sudo unzip -o "nomad-${nomad_version}.zip"
     sudo mv nomad "/usr/local/bin/nomad-${nomad_version}"
 fi;
 EOF

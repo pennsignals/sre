@@ -9,7 +9,7 @@ dst="/usr/local/bin/${src}"
 lnk="/usr/local/bin/consul"
 
 wget -O ${zip} "https://releases.hashicorp.com/consul/${consul_version}/consul_${consul_version}_linux_amd64.zip"
-sudo unzip ${zip}
+sudo unzip -o ${zip}
 sudo mv consul ${src}
 
 for node in "${nodes[@]}";

@@ -9,7 +9,7 @@ dst="/usr/local/bin/${src}"
 lnk="/usr/local/bin/vault"
 
 wget -O ${zip} "https://releases.hashicorp.com/vault/${vault_version}/vault_${vault_version}_linux_amd64.zip"
-sudo unzip ${zip}
+sudo unzip -o ${zip}
 sudo mv vault ${src}
 
 for node in "${nodes[@]}";
