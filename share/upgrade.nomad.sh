@@ -15,12 +15,19 @@ wget -O ${zip} "https://releases.hashicorp.com/nomad/${nomad_version}/nomad_${no
 sudo unzip ${zip}
 sudo mv nomad ${src}
 
-for node in "${nodes[@]}";
+noservers=($(comm -23 <(printf "%s\n" "${nodes[@]}" | sort) <(print "%s\n" "${nomads[@]}" | sort)))
+
+for node in "${noservers[@]}";
 do
         download_nomad $node $src $lnk $dst
 done;
 
 if servers; then
+        for node in "${nomads[@]}";
+        do
+                download_nomad $node $src $lnk $dst
+        done;
+
         for node in "${nomads[@]}";
         do
                 upgrade_nomad $node $lnk $dst
@@ -34,13 +41,13 @@ if servers; then
         done;
 fi
 
-for node in "${minions[@]}";
+for node in "${noservers[@]}";
 do
         upgrade_nomad $node $lnk $dst
 done;
 
 
-for minion in "${minions[@]}";
+for node in "${minions[@]}";
 do
-        restart_nomad $minion
+        restart_nomad $node
 done;
