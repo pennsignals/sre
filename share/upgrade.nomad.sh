@@ -12,7 +12,7 @@ wget -O ${zip} "https://releases.hashicorp.com/nomad/${nomad_version}/nomad_${no
 sudo unzip -o ${zip}
 sudo mv nomad ${src}
 
-noservers=($(comm -23 <(printf "%s\n" "${nodes[@]}" | sort) <(print "%s\n" "${nomads[@]}" | sort)))
+noservers=($(comm -23 <(printf "%s\n" "${nodes[@]}" | sort) <(printf "%s\n" "${nomads[@]}" | sort)))
 
 for node in "${nodes[@]}";
 do

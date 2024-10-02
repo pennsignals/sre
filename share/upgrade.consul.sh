@@ -27,7 +27,7 @@ do
         restart_consul $node
 done;
 
-clients=($(comm -23 <(printf "%s\n" "${nodes[@]}" | sort) <(print "%s\n" "${consuls[@]}" | sort)))
+clients=($(comm -23 <(printf "%s\n" "${nodes[@]}" | sort) <(printf "%s\n" "${consuls[@]}" | sort)))
 for node in "${clients[@]}";
 do
 	restart_consul $node
