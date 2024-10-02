@@ -408,6 +408,15 @@ fi;
 EOF
 }
 
+function autofs () {
+    local ip=$1
+    local nfs=$2
+    ssh -T -i ${ssh_key} "${user}@${ip}" << EOF
+set -euxo pipefail
+sudo apt install -y autofs
+EOF
+}
+
 function invalid_parameter {
     echo "Invalid parameter $1" >&2
     usage
