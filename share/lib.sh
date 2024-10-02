@@ -421,6 +421,7 @@ EOH
 sudo grep -qxF '/nfs	/etc/auto.nfs	--ghost	--timeout=60' /etc/auto.master || cat << EOH | sudo tee -a /etc/auto.master
 /nfs	/etc/auto.nfs	--ghost	--timeout=60
 EOH
+sudo ln -sf /nfs/share /share
 sudo systemctl restart autofs
 EOF
 }
