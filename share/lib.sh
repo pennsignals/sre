@@ -413,7 +413,7 @@ function autofs () {
     local nfs=$2
     ssh -T -i ${ssh_key} "${user}@${ip}" << EOF
 set -euxo pipefail
-sudo apt install -y autofs
+sudo apt-get install -y autofs
 EOF
 }
 
