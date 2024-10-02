@@ -414,6 +414,12 @@ function autofs () {
     ssh -T -i ${ssh_key} "${user}@${ip}" << EOF
 set -euxo pipefail
 sudo apt-get install -y autofs
+sudo cat > /etc/auto.nfs << EOH
+fileshare    -fstype=nfs4,rw ${nfs}:/nfsdisk
+share    -fstype=nfs4,rw ${nfs}:/nfsdisk
+EOH
+grep -qxF '/nfs	/etc/auto.nfs	--ghost	--timeout=60' /etc/auto.master || sudo echo '/nfs	/etc/auto.nfs	--ghost	--timeout=60' >> /etc/auto.master
+sudo systemctl restart autofs
 EOF
 }
 
