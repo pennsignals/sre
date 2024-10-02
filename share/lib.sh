@@ -414,7 +414,7 @@ function autofs () {
     ssh -T -i ${ssh_key} "${user}@${ip}" << EOF
 set -euxo pipefail
 sudo apt-get install -y autofs
-cat << EOH | sudo tee /etc/auto.fs
+cat << EOH | sudo tee /etc/auto.nfs
 fileshare    -fstype=nfs4,rw ${nfs}:/nfsdisk
 share    -fstype=nfs4,rw ${nfs}:/nfsdisk
 EOH
