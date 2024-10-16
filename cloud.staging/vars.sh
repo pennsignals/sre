@@ -77,8 +77,13 @@ vault_version="1.17.6"
 # levant_version="0.2.8"
 levant_version="0.3.3"
 
+# postgres_database="datascience"
+# postgres_host="use2-ds-production-postgres-b.postgres.database.azure.com"
+# postgres_port="5432"
+# postgres_username="datascience"
+
 postgres_database="datascience"
-postgres_host="use2-ds-production-postgres-b.postgres.database.azure.com"
+postgres_host="use2-ds-opal.postgres.database.azure.com"
 postgres_port="5432"
 postgres_username="datascience"
 
