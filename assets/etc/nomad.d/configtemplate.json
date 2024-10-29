@@ -1,7 +1,0 @@
-{
-  "auths": {
-    "ghcr.io/pennsignals/": {
-      "auth": "TEMPLATE"
-    }
-  }
-}
