@@ -9,6 +9,9 @@ cs_pem_key="consul-agent-cs-pem.key"
 user="signals"
 ssh_key=".ssh/acs_key"
 
+sub="prod"
+domain="signals.uphs.upenn.edu"
+
 secrets="./secrets/secrets.env"
 set +x
 source $secrets set

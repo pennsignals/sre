@@ -209,36 +209,26 @@ vault operator unseal $(get_kv unseal-key-3)
 EOF
 }
 
-function update_config () {
-    local template="$1"
-    local src="$2"
+function update_nomad_registry_auth () {
+    local ip=$1
+    local user=$3
+    local pat=$4
+    local dst="/etc/nomad.d/config.json"
     set +x
     base64encoded=$(echo -n "USERNAME:${pat}" | base64)
-    sed 's/"auth": ".*"/"auth": "'$base64encoded'"/g' "$template" > "$src"
     set -x
-}
-
-function upload_registry_auth () {
-    local ip=$1
-    local src=$2
-    local user=$3
-    local name=$4
-    local dst=$5
-    scp -i ${ssh_key} ${src} ${user}@${ip}:~/${name}
     ssh -T -i ${ssh_key} "${user}@${ip}" << EOF
 set -euxo pipefail
-sudo mv ~/${name} ${dst}
-sudo chown root:root ${dst}
-EOF
+cat << EOH | sudo tee ${dst}
+{
+  "auths": {
+    "ghcr.io/pennsignals/": {
+      "auth": "${base64encoded}"
+    }
+  }
 }
-
-function update_config () {
-    local template=$1
-    local src=$2
-    set +x
-    base64encoded=$(echo -n "USERNAME:${pat}" | base64)
-    sed 's/"auth": ".*"/"auth": "'$base64encoded'"/g' $template > $src
-    set -x
+EOH
+EOF
 }
 
 function download_consul() {
@@ -418,6 +408,7 @@ cat << EOH | sudo tee /etc/auto.nfs
 fileshare    -fstype=nfs4,rw ${nfs}:/nfsdisk
 share    -fstype=nfs4,rw ${nfs}:/nfsdisk
 EOH
+# if /etc/auto.nfs is not in /etc/auto.master, then add it
 sudo grep -qxF '/nfs	/etc/auto.nfs	--ghost	--timeout=60' /etc/auto.master || cat << EOH | sudo tee -a /etc/auto.master
 /nfs	/etc/auto.nfs	--ghost	--timeout=60
 EOH
