@@ -398,6 +398,39 @@ fi;
 EOF
 }
 
+function download_falcon_sensor () {
+    local ip=$1
+    local src=$2
+    local lnk=$3
+    local dst=$4
+    scp -i ${ssh_key} ${src} ${user}@${ip}:~/${src}
+    ssh -T -i ${ssh_key} "${user}@${ip}" << EOF
+set -euxo pipefail
+if [[ -e ${lnk} ]]; then
+    sudo cp --no-clobber ${src} ${dst}
+    sudo chown root:root ${dst}
+fi;
+EOF
+}
+
+function upgrade_falcon_sensor () {
+    local ip=$1
+    local lnk=$2
+    local dst=$3
+    ssh -T -i ${ssh_key} "${user}@${ip}" << EOF
+set -euxo pipefail
+if [[ -e ${dst} ]]; then
+    sudo ln -sf ${dst} ${lnk}
+    sudo dpkg -i ${lnk}
+    sudo /opt/CrowdStrike/falconctl -s --cid=${falcon_sensor_cid}
+
+    sudo systemctl daemon-reload
+    sudo systemctl enable falcon-sensor
+    sudo systemctl restart falcon-sensor
+fi;
+EOF
+}
+
 function autofs () {
     local ip=$1
     local nfs=$2

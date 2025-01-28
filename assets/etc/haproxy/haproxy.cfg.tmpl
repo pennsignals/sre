@@ -1,0 +1,146 @@
+{{ with $sub := "staging"; $domain := "signals.uphs.upenn.edu"; $jump_ip := 10.145.241.4 }}
+global
+        log 127.0.0.1   local0
+        log 127.0.0.1   local1 notice
+        maxconn 4096
+        chroot /var/lib/haproxy
+        stats socket /run/haproxy/admin.sock mode 660 level admin
+        stats timeout 30s
+        user haproxy
+        group haproxy
+        daemon
+
+defaults
+        log     global
+        mode    http
+        option  httplog
+        timeout connect 5s
+        timeout client 50s
+        timeout server 50s
+        option  dontlognull
+        timeout connect 5000
+        timeout client  50000
+        timeout server  50000
+        default-server init-addr last,libc,none
+
+        errorfile 400 /etc/haproxy/errors/400.http
+        errorfile 403 /etc/haproxy/errors/403.http
+        errorfile 408 /etc/haproxy/errors/408.http
+        errorfile 500 /etc/haproxy/errors/500.http
+        errorfile 502 /etc/haproxy/errors/502.http
+        errorfile 503 /etc/haproxy/errors/503.http
+        errorfile 504 /etc/haproxy/errors/504.http
+
+resolvers consul
+        nameserver consul 127.0.0.1:8600
+        # nameserver dnsmasq 127.0.0.1:53
+        accepted_payload_size 8192
+        resolve_retries       30
+        timeout retry         2s
+        hold valid            60s
+
+# The Azure loadbalancer probe will use this
+frontend haproxy_health
+        bind *:8000
+        mode http
+        monitor-uri /haproxy_health
+
+frontend haproxy_ui
+        bind *:9404
+        mode http
+        use_backend haproxy_be
+
+backend haproxy_be
+        mode http
+        stats enable
+        stats uri /
+        stats refresh 5
+        balance source
+        hash-type consistent
+        server haproxy_vmss haproxy.service.consul:8500 resolvers consul
+
+frontend consul_ui
+        bind *:9500
+        mode http
+        use_backend consul_be
+
+backend consul_be
+        mode http
+        balance source
+        hash-type consistent
+        server consul_vmss consul.service.consul:8500 resolvers consul
+
+frontend vault_ui
+        bind *:9200
+        mode http
+        use_backend vault_be
+
+backend vault_be
+        mode http
+        balance source
+        hash-type consistent
+        server vault_vmss active.vault.service.consul:8200 resolvers consul
+
+frontend nomad_ui
+        bind *:9646
+        mode http
+        use_backend nomad_be
+
+backend nomad_be
+        mode http
+        balance source
+        hash-type consistent
+        server nomad_vmss nomad.service.consul:4646 resolvers consul
+
+frontend jump_ssh
+        bind *:9022
+        mode tcp
+        use_backend jump_box
+
+backend jump_box
+        mode tcp
+        server jump {{ $jump_ip }}:22
+
+# Frontend for deafult hashicorp services
+frontend hashicorp_http
+        bind *:80
+
+        acl host_consul hdr(host) -i consul.{{ $sub }}.{{ $domain }}
+        acl host_vault hdr(host) -i vault.{{ $sub }}.{{ $domain }}
+        acl host_nomad hdr(host) -i nomad.{{ $sub }}.{{ $domain }}
+        acl host_haproxy hdr(host) -i haproxy.{{ $sub }}.{{ $domain }}
+
+        use_backend consul_cluster if host_consul
+        use_backend vault_cluster if host_vault
+        use_backend nomad_cluster if host_nomad
+        use_backend haproxy_cluster if host_haproxy
+
+frontend http-in
+        bind *:80
+
+        # Define UI hosts{{ range services }}{{ range service .Name }}{{ if in .Tags "ui" }}
+        acl host_{{ .Name }} hdr(host) -i {{ .Name }}.{{ $sub }}.{{ $domain }}{{ end }}{{ end }}{{ end }}
+
+        # Monitoring hosts{{ range services }}{{ if in .Tags "monitoring" }}{{ range $index, $service := service .Name }}
+        acl host_{{ .Name }}_{{ $index }} hdr(host) -i {{ .Name }}-{{ $index }}.{{ $sub }}.{{ $domain }}{{ end }}{{ end }}{{ end }}
+
+        # Figure out which UI backend to use{{ range services }}{{ range service .Name }}{{ if in .Tags "ui" }}
+        use_backend {{ .Name }}_cluster if host_{{ .Name }}{{ end }}{{ end }}{{ end }}
+
+        # Figure out which Monitoring backend to use{{ range services }}{{ if in .Tags "monitoring" }}{{ range $index, $service := service .Name }}
+        use_backend {{ .Name }}_{{ $index }}_cluster if host_{{ .Name }}_{{ $index }}{{ end }}{{ end }}{{ end }}
+
+{{ range services }}{{ range service .Name }}{{ if in .Tags "ui" }}
+backend {{ .Name }}_cluster
+        balance source
+        hash-type consistent
+        server {{ .Node }} {{ .Address }}:{{ .Port }} check
+        {{ end }}{{ end }}{{ end }}
+
+{{ range services }}{{ if in .Tags "monitoring" }}
+{{ range $index, $service := service .Name }}
+backend {{ .Name }}_{{ $index }}_cluster
+        balance source
+        hash-type consistent
+        server {{ .Node }} {{ $service.Address }}:{{ $service.Port }} check
+        {{ end }}{{ end }}{{ end }}{{ end }}
