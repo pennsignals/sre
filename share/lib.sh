@@ -422,7 +422,7 @@ set -euxo pipefail
 if [[ -e ${dst} ]]; then
     sudo ln -sf ${dst} ${lnk}
     sudo dpkg -i ${lnk}
-    sudo /opt/CrowdStrike/falconctl -s --cid=${falcon_sensor_cid}
+    sudo /opt/CrowdStrike/falconctl -s -f --cid=${falcon_sensor_cid}
 
     sudo systemctl daemon-reload
     sudo systemctl enable falcon-sensor
