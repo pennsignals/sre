@@ -8,9 +8,9 @@ src="falcon-sensor-${expected}"
 dst="/usr/local/bin/${src}"
 lnk="/usr/local/bin/vault"
 
-wget ${src} "https://paloaltocontent.uphs.upenn.edu/Agents/CS_Ubuntu_Sensor.deb"
-actual=$(dpkg -s ${src} | grep Version)
-actual=${expected:9}  #  Version: xxxxxx
+wget -O ${src} "https://paloaltocontent.uphs.upenn.edu/Agents/CS_Ubuntu_Sensor.deb"
+actual="$(dpkg -s ${src} | grep Version)"
+actual="${actual:9}"  #  Version: xxxxxx
 if [ $actual != $expected ]; then
         printf "Actual: ${actual} != Expected: ${expected}">&2
         exit 1;
