@@ -6,7 +6,7 @@ source vars.sh
 expected="${falcon_sensor_version}"
 src="falcon-sensor-${expected}"
 dst="/usr/local/bin/${src}"
-lnk="/usr/local/bin/vault"
+lnk="/usr/local/bin/falcon_sensor"
 
 wget -O ${src} "https://paloaltocontent.uphs.upenn.edu/Agents/CS_Ubuntu_Sensor.deb"
 actual="$(dpkg --info ${src} | grep Version)"
