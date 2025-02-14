@@ -401,31 +401,20 @@ EOF
 function download_falcon_sensor () {
     local ip=$1
     local src=$2
-    local lnk=$3
     scp -i ${ssh_key} ${src} ${user}@${ip}:~/${src}
-    ssh -T -i ${ssh_key} "${user}@${ip}" << EOF
-set -euxo pipefail
-if [[ -e ${lnk} ]]; then
-    sudo chown root:root ${src}
-fi;
-EOF
 }
 
 function upgrade_falcon_sensor () {
     local ip=$1
     local src=$3
-    local lnk=$2
     ssh -T -i ${ssh_key} "${user}@${ip}" << EOF
 set -euxo pipefail
-if [[ -e ${src} ]]; then
-    sudo ln -sf ${src} ${lnk}
-    sudo dpkg -i ${lnk}
-    sudo /opt/CrowdStrike/falconctl -s -f --cid=${falcon_sensor_cid}
+sudo dpkg -i ${src}
+sudo /opt/CrowdStrike/falconctl -s -f --cid=${falcon_sensor_cid}
 
-    sudo systemctl daemon-reload
-    sudo systemctl enable falcon-sensor
-    sudo systemctl restart falcon-sensor
-fi;
+sudo systemctl daemon-reload
+sudo systemctl enable falcon-sensor
+sudo systemctl restart falcon-sensor
 EOF
 }
 

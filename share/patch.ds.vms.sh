@@ -17,8 +17,6 @@ source vars.sh
 
 expected="${falcon_sensor_version}"
 src="falcon-sensor.deb"
-lnk="/usr/local/bin/falcon-sensor"
-
 wget -O ${src} "https://paloaltocontent.uphs.upenn.edu/Agents/CS_Ubuntu_Sensor.deb"
 actual="$(dpkg --info ${src} | grep Version)"
 actual="${actual:10}"  #  Version: xxxxxx
@@ -71,11 +69,11 @@ if [ "$is_ready" = true ]; then
   done;
   for node in "${ips[@]}";
   do
-    download_falcon_sensor $node $src $lnk
+    download_falcon_sensor $node $src
   done;
   for node in "${ips[@]";
   do
-    upgrade_falcon_sensor $node $src lnk
+    upgrade_falcon_sensor $node $src
   done;
 else
   echo "Failed to allocate all VMs. Contact Pennsignals for assistance."
