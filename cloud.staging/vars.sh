@@ -55,7 +55,7 @@ consul_version="1.19.2"
 
 consul_template_version="0.39.1"
 
-falcon_sensor_version="7.17.0-17011"
+falcon_sensor_version="7.19.0-17221"
 falcon_sensor_cid="EB648EE3E2ED4C688A4615C987F4EAEB-BF"
 
 # nomad_version="1.0.18"

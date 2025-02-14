@@ -402,25 +402,23 @@ function download_falcon_sensor () {
     local ip=$1
     local src=$2
     local lnk=$3
-    local dst=$4
     scp -i ${ssh_key} ${src} ${user}@${ip}:~/${src}
     ssh -T -i ${ssh_key} "${user}@${ip}" << EOF
 set -euxo pipefail
 if [[ -e ${lnk} ]]; then
-    sudo cp --no-clobber ${src} ${dst}
-    sudo chown root:root ${dst}
+    sudo chown root:root ${src}
 fi;
 EOF
 }
 
 function upgrade_falcon_sensor () {
     local ip=$1
+    local src=$3
     local lnk=$2
-    local dst=$3
     ssh -T -i ${ssh_key} "${user}@${ip}" << EOF
 set -euxo pipefail
-if [[ -e ${dst} ]]; then
-    sudo ln -sf ${dst} ${lnk}
+if [[ -e ${src} ]]; then
+    sudo ln -sf ${src} ${lnk}
     sudo dpkg -i ${lnk}
     sudo /opt/CrowdStrike/falconctl -s -f --cid=${falcon_sensor_cid}
 
