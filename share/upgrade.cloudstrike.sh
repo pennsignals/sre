@@ -9,7 +9,7 @@ lnk="/usr/local/bin/falcon-sensor"
 
 wget -O ${src} "https://paloaltocontent.uphs.upenn.edu/Agents/CS_Ubuntu_Sensor.deb"
 actual="$(dpkg --info ${src} | grep Version)"
-actual="${actual:9}"  #  Version: xxxxxx
+actual="${actual:10}"  #  Version: xxxxxx
 if [ $actual != $expected ]; then
         printf "Unexpected cloudstrike falcon-sensor version: Actual: ${actual} != Expected: ${expected}">&2
 fi;
