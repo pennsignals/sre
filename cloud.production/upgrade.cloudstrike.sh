@@ -1,1 +1,0 @@
-../share/upgrade.cloudstrike.sh
