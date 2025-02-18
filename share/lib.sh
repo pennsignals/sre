@@ -406,7 +406,7 @@ function download_falcon_sensor () {
 
 function upgrade_falcon_sensor () {
     local ip=$1
-    local src=$3
+    local src=$2
     ssh -T -i ${ssh_key} "${user}@${ip}" << EOF
 set -euxo pipefail
 sudo dpkg -i ${src}
