@@ -56,10 +56,10 @@ while [ $counter -le 10 ]; do
   if [ "$is_ready" = true ]; then
     break
   fi
-out_string="Retrying attempt $counter out of 10. Sleeping for 5 seconds..."
-echo $out_string
-sleep 5
-((counter++))
+  out_string="Retrying attempt $counter out of 10. Sleeping for 5 seconds..."
+  echo $out_string
+  sleep 5
+  ((counter++))
 done
 
 if [ "$is_ready" = true ]; then
@@ -71,12 +71,12 @@ if [ "$is_ready" = true ]; then
   do
     download_falcon_sensor $node $src
   done;
-  for node in "${ips[@]";
+  for node in "${ips[@]}";
   do
     upgrade_falcon_sensor $node $src
   done;
 else
-  echo "Failed to allocate all VMs. Contact Pennsignals for assistance."
+  echo "Failed to allocate all VMs. Contact Pennsignals for assistance.";
 fi
 
 #az vm deallocate --ids $(az vm list -g "$2" --query "[].id" -o tsv)
