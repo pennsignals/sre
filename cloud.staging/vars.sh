@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euxo pipefail
 
-subscription="DATASCIENCE_PRODUCTION"
+subscription="DATASCIENCE-PRODUCTION"
 resource_group="use2-uphs-pennsignals-ds-prod-rg"
 
 dc="dc1"
