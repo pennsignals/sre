@@ -18,8 +18,8 @@ dst="falcon-sensor-${actual}.deb"
 mv ${src} ${dst}
 src="${dst}"
 
-az login --use-device-code
 az account set --subscription "${subscription}"
+yes | az login --use-device-code
 az vm start --ids $(az vm list -g "${resource_group}" --query "[].id" -o tsv)
 ips_string=$(az vm list -g "${resource_group}" --query "[].privateIps" -d -o tsv)
 ips=($ips_string)
