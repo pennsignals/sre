@@ -28,7 +28,7 @@ counter=1
 
 while [ $counter -le 10 ]; do
   is_ready=true
-  vm_list=$(az vm list -g $2 --query '[].{Name:name,Status:powerState}' -d -o table)
+  vm_list=$(az vm list -g "${resource_group}" --query '[].{Name:name,Status:powerState}' -d -o table)
   vm_list=$(echo "$vm_list" | sed '1,2d')
 
 
