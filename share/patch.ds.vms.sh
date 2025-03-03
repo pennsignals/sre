@@ -18,7 +18,9 @@ dst="falcon-sensor-${actual}.deb"
 mv ${src} ${dst}
 src="${dst}"
 
+# work around stupid az cli interactive behavior
 az account set --subscription "${subscription}"
+az config set core.disable_confirm_prompt=true
 az login --use-device-code
 az vm start --ids $(az vm list -g "${resource_group}" --query "[].id" -o tsv)
 ips_string=$(az vm list -g "${resource_group}" --query "[].privateIps" -d -o tsv)
