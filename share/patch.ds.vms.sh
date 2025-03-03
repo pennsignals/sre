@@ -19,9 +19,10 @@ mv ${src} ${dst}
 src="${dst}"
 
 # work around stupid az cli interactive behavior
-az account set --subscription "${subscription}"
 az config set core.disable_confirm_prompt=true
-az login --use-device-code
+az config set core.login_experience_v2=off
+az login --use-device-code --allow-no-subscriptions
+az account set --subscription "${subscription}"
 az vm start --ids $(az vm list -g "${resource_group}" --query "[].id" -o tsv)
 ips_string=$(az vm list -g "${resource_group}" --query "[].privateIps" -d -o tsv)
 ips=($ips_string)
