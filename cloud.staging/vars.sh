@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -euxo pipefail
 
+subscription="DATASCIENCE_PRODUCTION"
+resource_group="use2-uphs-pennsignals-ds-prod-rg"
+
 dc="dc1"
 dn="${dc}.signals.uphs.upenn.edu"
 days=1825

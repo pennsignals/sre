@@ -6,15 +6,6 @@ source vars.sh
 #Patch all VMs in a resource group.
 #Must be run with VPN on and only by users with ssh access to VMs
 
-#For Herman Lab
-#./patch.ds.vms.sh DATASCIENCE-LA translational-herman
-
-#For Weissman Lab
-#./patch.ds.vms.sh DATASCIENCE-LA translational-weissman
-
-#For general Resource Group use
-#./patch.ds.vms.sh (Subscription Name) (resource group name)
-
 expected="${falcon_sensor_version}"
 src="falcon-sensor.deb"
 wget -O ${src} "https://paloaltocontent.uphs.upenn.edu/Agents/CS_Ubuntu_Sensor.deb"
@@ -28,9 +19,9 @@ mv ${src} ${dst}
 src="${dst}"
 
 az login --use-device-code
-az account set --subscription "$1"
-az vm start --ids $(az vm list -g "$2" --query "[].id" -o tsv)
-ips_string=$(az vm list -g "$2" --query "[].privateIps" -d -o tsv)
+az account set --subscription "${subscription}"
+az vm start --ids $(az vm list -g "${resource_group}" --query "[].id" -o tsv)
+ips_string=$(az vm list -g "${resource_group}" --query "[].privateIps" -d -o tsv)
 ips=($ips_string)
 is_ready=true
 counter=1
@@ -79,6 +70,6 @@ else
   echo "Failed to allocate all VMs. Contact Pennsignals for assistance.";
 fi
 
-#az vm deallocate --ids $(az vm list -g "$2" --query "[].id" -o tsv)
+#az vm deallocate --ids $(az vm list -g "${resource_group}" --query "[].id" -o tsv)
 
 #TODO Get list of running VMs and use that to only shut down ones that were already down before patching

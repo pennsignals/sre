@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 set -euxo pipefail
+
+subscription="DATASCIENCE_PRODUCTION"
+resource_group="use2-ds-production-postgres-opal-rg"
+
 user="signals"
 ssh_key=".ssh/acs_key"
 
