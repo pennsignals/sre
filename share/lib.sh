@@ -487,3 +487,18 @@ sudo pg_restore -d 'user=${postgres_username} password=${postgres_password} host
 set -x
 EOF
 }
+
+function download_files() {
+    local ip=$1
+    scp -i ${ssh_key} "${@:2}" ${user}@${ip}:~/
+}
+
+function upgrade_certs() {
+    local ip=$1
+    ssh -T -i ${ssh_key} "${user}@${ip}" << EOF
+set -euxo pipefail
+sudo mkdir -p /usr/local/share/ca-certificates/extra
+sudo cp ${@:2} /usr/local/share/ca-certificates/extra/
+sudo update-ca-certificates
+EOF
+}
